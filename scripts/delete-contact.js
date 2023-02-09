@@ -2,10 +2,18 @@ const axios = require('axios')
 const fs = require('fs')
 
 const baseURL = 'https://api.hubapi.com'
-const LIST = `${baseURL}/crm/v3/objects/contacts`
-const DELETE = `${LIST}/batch/archive`
+const CONTACT = `${baseURL}/crm/v3/objects/contacts`
+const DELETE = `${CONTACT}/batch/archive`
 
-async function contact (file, limit) {
+async function deleteOne (id) {
+  return await axios.delete(CONTACT + `/${id}`, {
+    headers: {
+      authorization: `Bearer ${process.env.TOKEN}`
+    }
+  })
+}
+
+async function deleteContacts (file, limit) {
   const data = fs.readFileSync(file).toString()
     .split('\n')
     .map(x => x.split(','))
@@ -13,7 +21,7 @@ async function contact (file, limit) {
       return x[2]
     })
 
-  const response = await axios.get(LIST, {
+  const response = await axios.get(CONTACT, {
     headers: {
       authorization: `Bearer ${process.env.TOKEN}`
     },
@@ -40,7 +48,10 @@ async function contact (file, limit) {
 }
 
 if (process.argv.length > 3) {
-  contact(process.argv[2], process.argv[3])
+  deleteContacts(process.argv[2], process.argv[3])
 }
 
-module.exports = contact
+module.exports = {
+  deleteContacts,
+  deleteOne
+}

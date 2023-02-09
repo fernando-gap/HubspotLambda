@@ -6,7 +6,11 @@ const multer = require('multer')
 const hubspot = require('./hubspot.js')
 const csv = require('./spreadsheet.js')
 
-const upload = multer()
+const upload = multer({
+  limits: {
+    fileSize: 50 * 1024 * 1024
+  }
+})
 
 router.post('/file', upload.single('file'), async (req, res) => {
   const amount = await csv(req.file.buffer, async line => {
