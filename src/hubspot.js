@@ -3,12 +3,38 @@
 const axios = require('axios')
 const { HUBSPOT } = require('./constants')
 
-async function uploadContact(properties) {
-    await axios.post(HUBSPOT, properties, {
-        headers: {
-            Authorization: `Bearer ${process.env.TOKEN}`
-        }
-    })
+function schema (contact) {
+  const [
+    company,
+    name,
+    email,
+    phone,
+    website
+  ] = contact
+
+  const [firstname, lastname] = name.split(' ')
+
+  return {
+    properties: {
+      firstname,
+      lastname,
+      email,
+      phone,
+      company,
+      website
+    }
+  }
 }
 
-module.exports = uploadContact
+async function uploadContact (properties) {
+  return await axios.post(HUBSPOT, properties, {
+    headers: {
+      authorization: `Bearer ${process.env.TOKEN}`
+    }
+  })
+}
+
+module.exports = {
+  uploadContact,
+  schema
+}
