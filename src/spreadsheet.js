@@ -20,12 +20,17 @@ function streamFromBuffer (buffer) {
   return readable
 }
 
+function isValidRow (line) {
+  return line[2].split('@')[1] === new URL(line[4]).hostname
+}
+
 async function csv (buffer, cb) {
   let isFirstLine = true
   const file = readline.createInterface({
     input: streamFromBuffer(buffer),
     terminal: false
   })
+
   for await (let line of file) {
     line = line.split(DELIMITER)
     if (isFirstLine) {
@@ -36,7 +41,10 @@ async function csv (buffer, cb) {
       isFirstLine = false
       continue
     }
-    cb(line)
+
+    if (isValidRow(line)) {
+      cb(line)
+    }
   }
 }
 
