@@ -30,7 +30,7 @@ async function csv (buffer, cb) {
     input: streamFromBuffer(buffer),
     terminal: false
   })
-
+  let parsed = 0
   for await (let line of file) {
     line = line.split(DELIMITER)
     if (isFirstLine) {
@@ -43,9 +43,11 @@ async function csv (buffer, cb) {
     }
 
     if (isValidRow(line)) {
+      ++parsed
       cb(line)
     }
   }
+  return parsed
 }
 
 module.exports = csv

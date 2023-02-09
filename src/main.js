@@ -9,10 +9,15 @@ const csv = require('./spreadsheet.js')
 const upload = multer()
 
 router.post('/file', upload.single('file'), async (req, res) => {
-  await csv(req.file.buffer, async line => {
+  const amount = await csv(req.file.buffer, async line => {
     const json = hubspot.schema(line)
-    await hubspot.uploadContact(json)
+    try {
+      await hubspot.uploadContact(json)
+    } catch (e) {
+      console.log(e)
+    }
   })
+  res.status(200).send({ message: 'done', amount })
 })
 
 module.exports = router
