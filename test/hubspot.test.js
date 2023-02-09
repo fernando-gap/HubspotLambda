@@ -1,6 +1,6 @@
 const { schema, uploadContact } = require('../src/hubspot.js')
 const { expect } = require('chai')
-const { deleteOne } = require('../scripts/delete-contact')
+const { deleteOne, deleteContacts } = require('../scripts/delete-contact')
 const file = require('./data')
 
 describe('Hubspot', function () {
@@ -11,6 +11,10 @@ describe('Hubspot', function () {
     '2661949541',
     'https://zoomzone.com'
   ]
+
+  before(async function () {
+    await deleteContacts('./test/data/mock/right.csv', 30)
+  })
   describe('#schema()', function () {
     it('Return hubspot contact schema', function () {
       const result = schema(inputSchema)
