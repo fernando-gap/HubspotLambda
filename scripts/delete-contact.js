@@ -5,7 +5,7 @@ const baseURL = 'https://api.hubapi.com'
 const LIST = `${baseURL}/crm/v3/objects/contacts`
 const DELETE = `${LIST}/batch/archive`
 
-module.exports = async function (file, limit) {
+async function contact (file, limit) {
   const data = fs.readFileSync(file).toString()
     .split('\n')
     .map(x => x.split(','))
@@ -38,3 +38,9 @@ module.exports = async function (file, limit) {
     }
   })
 }
+
+if (process.argv.length > 3) {
+  contact(process.argv[2], process.argv[3])
+}
+
+module.exports = contact

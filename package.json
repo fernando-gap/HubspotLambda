@@ -7,7 +7,8 @@
     "start": "node app.js",
     "test": "mocha --recursive ./test -r dotenv/config",
     "lint": "npx eslint",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "rm:contacts": "node -r dotenv/config ./scripts/delete-contact.js"
   },
   "author": "Fernando A",
   "license": "MIT",
