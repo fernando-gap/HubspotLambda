@@ -9,12 +9,7 @@ Antes de usar certifique-se de ter executado os comandos abaixo:
 ```sh
 git clone https://github.com/fernando-gap/desafio-devapi.git \
 && cd desafio-devapi \
-&& npm install --omit=dev
-```
-
-Se desejar, instale todas as dependencias:
-```sh
-npm install
+&& npm install
 ```
 
 Crie o arquivo `.env`:
