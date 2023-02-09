@@ -2,9 +2,16 @@
     "env": {
         "commonjs": true,
         "es2021": true,
-        "node": true
+        "node": true,
+        "mocha": true
     },
-    "extends": "standard",
+    "plugins": [
+        "mocha"
+    ],
+    "extends": [
+        "plugin:mocha/recommended",
+        "standard"
+    ],
     "overrides": [
     ],
     "parserOptions": {
