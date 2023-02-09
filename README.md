@@ -34,7 +34,7 @@ Para testar basta enviar uma POST request `multpart/form-data` para `/api/file`.
 Utilizando o cURL em um dos arquivos de teste em `test/data/mock/`:
 ```sh
 curl -F file='@test/data/mock/mix.csv' \
--X POST 'http://127.0.0.1:8000/api/file'
+-X POST 'http://127.0.0.1:8080/api/file'
 ```
 Note: outros http clients podem ser usados também, assim como axios.
 
@@ -65,3 +65,10 @@ Onde `<path>` é o diretorio dos arquivos de teste
 E `<qty>` a quantidade a ser deletada.
 
 Onde path é o arquivo utilizado dos contatos da planilha e quantidade são quantos contatos serão deletados da planilha.
+
+Exemplo:
+```sh
+npm run rm:contacts -- test/data/mock/mix.csv 25
+```
+
+Caso nao deletou tudo é só fazer uma outra request ou aumentar o valor de `<qty>`, fique tranquilo, os contatos deletados somente são os que estão no arquivo `<path>`.
