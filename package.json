@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "prepare": "chmod +x ./scripts/setup.sh ./scripts/cleanup.sh ./scripts/test.sh",
+    "prepare": "test -d ./scripts && chmod +x ./scripts/setup.sh ./scripts/cleanup.sh ./scripts/test.sh || echo Skipping...",
     "test": "mocha --recursive ./test -r dotenv/config",
     "lint": "npx eslint",
     "aws:setup": "./scripts/setup.sh",

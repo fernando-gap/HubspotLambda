@@ -19,7 +19,7 @@ then
   # It is need to configure lambda template
   mkdir -p './lib/nodejs'
   cp 'package.json' './lib/nodejs'
-  npm --prefix './lib/nodejs' install --omit=dev --ignore-scripts './lib/nodejs'
+  npm --prefix './lib/nodejs' install --omit=dev './lib/nodejs'
   rm './lib/nodejs/package.json'
 
   # Create samconfig.toml
