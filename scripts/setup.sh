@@ -20,7 +20,7 @@ then
   echo -n "" > samconfig.toml
   echo "version=0.1" >> samconfig.toml
   echo "[default.deploy.parameters]" >> samconfig.toml
-  echo "stack_name = hubspot-app" >> samconfig.toml
+  echo "stack_name = \"hubspot-app\"" >> samconfig.toml
   echo "$variable" >> samconfig.toml
   echo "$p" >> samconfig.toml
 fi
