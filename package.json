@@ -7,6 +7,7 @@
     "start": "node app.js",
     "test": "mocha --recursive ./test -r dotenv/config",
     "lint": "npx eslint",
+    "setup": "./scripts/setup.sh",
     "git:hook": "husky install",
     "rm:contacts": "node -r dotenv/config ./scripts/delete-contact.js"
   },
