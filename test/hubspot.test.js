@@ -1,4 +1,4 @@
-const { schema, uploadContact } = require('../src/hubspot.js')
+const { schema, uploadContact } = require('../function/src/hubspot.js')
 const { expect } = require('chai')
 const { deleteOne, deleteContacts } = require('../scripts/delete-contact')
 const file = require('./data')

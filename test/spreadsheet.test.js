@@ -1,7 +1,7 @@
 const { expect } = require('chai')
-const { DELIMITER } = require('../src/constants.js')
+const { DELIMITER } = require('../function/src/constants.js')
 const file = require('./data')
-const csv = require('../src/spreadsheet.js')
+const csv = require('../function/src/spreadsheet.js')
 
 const getInput = (buff) => {
   return buff.toString()

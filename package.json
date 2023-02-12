@@ -5,10 +5,10 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "prepare": "chmod +x ./scripts/cleanup.sh ./scripts/setup.sh",
     "test": "mocha --recursive ./test -r dotenv/config",
     "lint": "npx eslint",
     "aws:setup": "./scripts/setup.sh",
+    "aws:test": "./scripts/test.sh",
     "aws:deploy": "sam build && sam deploy --guided",
     "aws:cleanup": "./scripts/cleanup.sh",
     "hubspot:cleanup": "node -r dotenv/config ./scripts/delete-contact.js",
