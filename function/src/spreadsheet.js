@@ -44,7 +44,7 @@ async function csv (buffer, cb) {
 
     if (isValidRow(line)) {
       ++parsed
-      cb(line)
+      await cb(line)
     }
   }
   return parsed

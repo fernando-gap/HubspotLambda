@@ -1,0 +1,44 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Create HubSpot Contacts from Google Spreadsheets
+Parameters:
+  AppBucketName:
+    Type: String
+    Description: "REQUIRED: Upload Google Spreadsheets."
+  HubspotToken:
+    Type: String
+    Description: "REQUIRED: Manage Hubspot Contacts"
+  
+Resources:
+  function:
+    Type: AWS::Serverless::Function
+    Properties:
+      Description: s3 that triggers lambda
+      Handler: index.handler
+      Runtime: nodejs18.x
+      CodeUri: ./function/.
+      FunctionName: create_hubspot_contact
+      Timeout: 15
+      Policies:
+        S3ReadPolicy:
+          BucketName: !Ref AppBucketName
+      Events:
+        S3Trigger:
+          Type: S3
+          Properties:
+            Bucket: !Ref s3bucket
+            Events: s3:ObjectCreated:*
+      Environment:
+        Variables:
+          TOKEN: !Ref HubspotToken
+      Layers:
+        - !Ref libs
+  s3bucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: !Ref AppBucketName
+  libs:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: Dependencies
+      ContentUri: ./lib/.
