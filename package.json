@@ -5,11 +5,14 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
+    "prepare": "chmod +x ./scripts/cleanup.sh ./scripts/setup.sh",
     "test": "mocha --recursive ./test -r dotenv/config",
     "lint": "npx eslint",
-    "setup": "./scripts/setup.sh",
-    "git:hook": "husky install",
-    "rm:contacts": "node -r dotenv/config ./scripts/delete-contact.js"
+    "aws:setup": "./scripts/setup.sh",
+    "aws:deploy": "sam build && sam deploy --guided",
+    "aws:cleanup": "./scripts/cleanup.sh",
+    "hubspot:cleanup": "node -r dotenv/config ./scripts/delete-contact.js",
+    "git:hook": "husky install"
   },
   "author": "Fernando A",
   "license": "MIT",

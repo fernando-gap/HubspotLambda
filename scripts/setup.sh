@@ -6,9 +6,15 @@ if [ -e .env ];
 then
   IFS='='
   read -a token <<< $(cat '.env')
+
   value=$(printf "%q" "${token[1]}")
-  variable="HubspotToken = ${token[1]}"
-  p="parameter_overrides = \"HubspotToken=$value\""
+  s3bucket="hubspot-app-$(dd if=/dev/random bs=8 count=1 2>/dev/null | od -An -tx1 | tr -d ' \t\n')"
+  p_overrides="parameter_overrides = \"HubspotToken=$value AppBucketName=\\\"$s3bucket\\\"\""
+
+  # clean up .env
+  echo -n "" >  .env
+  echo "TOKEN=${token[1]}" >> .env
+  echo "S3BUCKET=${s3bucket}" >> .env
 
   # It is need to configure lambda template
   mkdir -p './lib/nodejs'
@@ -18,10 +24,14 @@ then
 
   # Create samconfig.toml
   echo -n "" > samconfig.toml
-  echo "version=0.1" >> samconfig.toml
-  echo "[default.deploy.parameters]" >> samconfig.toml
-  echo "stack_name = \"hubspot-app\"" >> samconfig.toml
-  echo "$variable" >> samconfig.toml
-  echo "$p" >> samconfig.toml
-fi
+  echo "version=0.1
+[default.deploy.parameters]
+stack_name = \"hubspot-app\"
+HubspotToken = ${token[1]}
+$p_overrides
+" >> samconfig.toml
 
+else
+  echo '> TOKEN NAO EXISTE! Crie e adicione ao arquivo `.env`'
+  echo '> No Formato: TOKEN="{token_hubspot_aplicativo_privado}"'
+fi
