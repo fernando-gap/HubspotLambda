@@ -4,10 +4,17 @@ Esse é o desafio proposto pela DevAPI concluído!
 
 Leia dados de uma planilha do Google Sheets e Adicione como contatos no Hubspot!
 
+## Index
+- [Setup](#setup)
+- [Testing](#testing)
+- [Linter](#linter)
+- [Clean up](#clean-up)
+- [Troubleshoting](#troubleshoting)
+
 ## Setup
 A chave de API do HubSpot foi substituido pelos aplicativos privados, por isso, nesse projeto você precisa criar um aplicativo privado e guardar o seu `token`.
 
-Para fazer deployment da função lambda, é necessário instalar o **aws-cli** e o **aws-sam-cli**, lembre-se de criar o `access token` da aws e configurar com o comando `aws configure`.
+Para fazer deployment da função lambda, é necessário instalar o [**aws-cli**](https://docs.aws.amazon.com/pt_br/cli/latest/userguide/getting-started-install.html) e o [**aws-sam-cli**](https://docs.aws.amazon.com/pt_br/serverless-application-model/latest/developerguide/install-sam-cli.html), lembre-se de criar o `access token` da aws e configurar com o comando `aws configure`.
 
 Antes de iniciar certifique-se de ter executado os comandos abaixo:
 ```sh
@@ -64,7 +71,7 @@ Eslint com plugin para o framework de teste mocha. E, Git Hooks para linting ant
 
 ## Clean up
 
-Para deleter os recursos criados na aws, rode:
+Para deletar os recursos criados na aws, rode:
 ```sh
 npm run aws:cleanup
 ```
@@ -72,30 +79,30 @@ npm run aws:cleanup
 
 Caso queira deletar os contatos do HubSpot rode:
 ```sh
-npm run rm:contacts -- <path> <qty>
+npm run hubspot:cleanup -- <path> <qty>
 ```
 
 Onde `<path>` é o diretorio dos arquivos de teste
 e `<qty>` a quantidade a ser deletada do arquivo path.
 
 ```sh
-npm run rm:contacts -- test/data/mock/mix.csv 25
+npm run hubspot:cleanup -- test/data/mock/mix.csv 25
 ```
 
-Caso nao deletou tudo é só fazer uma outra request ou aumentar o valor de `<qty>`, fique tranquilo, os contatos deletados somente são os que estão no arquivo `<path>`.
+Caso não deletou tudo é só fazer uma outra request ou aumentar o valor de `<qty>`, fique tranquilo, os contatos deletados somente são os que estão no arquivo `<path>`.
 
 
-# Troubleshoting
+## Troubleshoting
 
 Não Funcionou? Tudo bem! Nessa seção são erros que podem acontecer.
 
-Limpe o cache da build:
+Você pode limpar o cache da build e tentar de novo:
 ```sh
 rm -rf ./.aws-sam ./lib ./samconfig.toml
 ```
 
-### #0 Não configurou .env
-- Adicione o token do hubspot da seguinte forma
+### #0 .env não configurado
+- Configure o token do hubspot da seguinte forma:
 ```
 TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
 ```
@@ -124,4 +131,4 @@ A chave de acesso é invalida.
 - Seu aplicativo privado não existe.
 - O comando `npm run hubspot:cleanup` não funciona
   - .env não existe com o token.
-  - Falta argumentos o path e a quantidade a ser deletada.
+  - Falta argumentos, o path e a quantidade a ser deletada.
