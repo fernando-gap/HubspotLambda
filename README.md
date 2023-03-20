@@ -1,6 +1,4 @@
-# Desafio DevAPI
-
-Esse é o desafio proposto pela DevAPI concluído!
+# Hubspot Lambda
 
 Leia dados de uma planilha do Google Sheets e Adicione como contatos no Hubspot!
 
